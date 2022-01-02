@@ -37,29 +37,29 @@ public class Genrecontroller {
         return genreRepository.findGenreByGenreName(genreName);
     }
 
-    @PostMapping("/genres")
-    public Genre addGenre(@RequestBody Genre genre) {
-        genreRepository.save(genre);
-        return genre;
-    }
-
-    @PutMapping("/genres")
-    public Genre updateGenre(@RequestBody Genre updatedGenre) {
-        Genre retrievedGenre = genreRepository.findGenreByGenreName(updatedGenre.getGenreName());
-        retrievedGenre.setGenreName(updatedGenre.getGenreName());
-        genreRepository.save(retrievedGenre);
-
-        return retrievedGenre;
-    }
-
-    @DeleteMapping("/genres/{genreName}")
-    public ResponseEntity deleteGenre(@PathVariable String genreName) {
-        Genre genre = genreRepository.findGenreByGenreName(genreName);
-        if (genre != null){
-            genreRepository.delete(genre);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
+//    @PostMapping("/genres")
+//    public Genre addGenre(@RequestBody Genre genre) {
+//        genreRepository.save(genre);
+//        return genre;
+//    }
+//
+//    @PutMapping("/genres")
+//    public Genre updateGenre(@RequestBody Genre updatedGenre) {
+//        Genre retrievedGenre = genreRepository.findGenreByGenreName(updatedGenre.getGenreName());
+//        retrievedGenre.setGenreName(updatedGenre.getGenreName());
+//        genreRepository.save(retrievedGenre);
+//
+//        return retrievedGenre;
+//    }
+//
+//    @DeleteMapping("/genres/{genreName}")
+//    public ResponseEntity deleteGenre(@PathVariable String genreName) {
+//        Genre genre = genreRepository.findGenreByGenreName(genreName);
+//        if (genre != null){
+//            genreRepository.delete(genre);
+//            return ResponseEntity.ok().build();
+//        } else {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
 }
