@@ -37,10 +37,10 @@ public class GenreControllerUnitTests {
     @Test
     public void givenGenre_whenGetGenre_thenReturnJsonGenre() throws Exception {
 
-        Genre genre1 = new Genre("Rock");
-        Genre genre2 = new Genre("Punk");
-        Genre genre3 = new Genre("Metal");
-        Genre genre4 = new Genre("Grunge");
+        Genre genre1 = new Genre("Rock", "Rock music is a broad genre of popular music that originated as \"rock and roll\" in the United States in the late 1940s and early 1950s, developing into a range of different styles in the mid-1960s and later, particularly in the United States and the United Kingdom.");
+        Genre genre2 = new Genre("Punk rock","Punk rock (or simply punk) is a music genre that emerged in the mid-1970s. Rooted in 1960s garage rock, punk bands rejected the perceived excesses of mainstream 1970s rock.");
+        Genre genre3 = new Genre("Heavy Metal","Heavy metal (or simply metal) is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and the United States.");
+        Genre genre4 = new Genre("Grunge","Grunge (sometimes referred to as the Seattle sound) is an alternative rock genre and subculture that emerged during the mid-1980s in the American Pacific Northwest state of Washington, particularly in Seattle and nearby towns.");
 
         List<Genre> genreList = new ArrayList<>();
         genreList.add(genre1);
@@ -55,22 +55,23 @@ public class GenreControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
                 .andExpect(jsonPath("$[0].genreName", is("Rock")))
-                .andExpect(jsonPath("$[1].genreName", is("Punk")))
-                .andExpect(jsonPath("$[2].genreName", is("Metal")))
+                .andExpect(jsonPath("$[1].genreName", is("Punk rock")))
+                .andExpect(jsonPath("$[2].genreName", is("Heavy Metal")))
                 .andExpect(jsonPath("$[3].genreName", is("Grunge")));
     }
 
     @Test
     public void givenGenre_whenGetGenreByGenreName_thenReturnJsonGenre() throws Exception {
 
-        Genre genre1 = new Genre("Rock");
-        Genre genre2 = new Genre("Punk");
-        Genre genre3 = new Genre("Metal");
-        Genre genre4 = new Genre("Grunge");
+        Genre genre1 = new Genre("Rock", "Rock music is a broad genre of popular music that originated as \"rock and roll\" in the United States in the late 1940s and early 1950s, developing into a range of different styles in the mid-1960s and later, particularly in the United States and the United Kingdom.");
+        Genre genre2 = new Genre("Punk rock","Punk rock (or simply punk) is a music genre that emerged in the mid-1970s. Rooted in 1960s garage rock, punk bands rejected the perceived excesses of mainstream 1970s rock.");
+        Genre genre3 = new Genre("Heavy Metal","Heavy metal (or simply metal) is a genre of rock music that developed in the late 1960s and early 1970s, largely in the United Kingdom and the United States.");
+        Genre genre4 = new Genre("Grunge","Grunge (sometimes referred to as the Seattle sound) is an alternative rock genre and subculture that emerged during the mid-1980s in the American Pacific Northwest state of Washington, particularly in Seattle and nearby towns.");
+
 
         given(genreRepository.findGenreByGenreName("Rock")).willReturn(genre1);
-        given(genreRepository.findGenreByGenreName("Punk")).willReturn(genre2);
-        given(genreRepository.findGenreByGenreName("Metal")).willReturn(genre3);
+        given(genreRepository.findGenreByGenreName("Punk rock")).willReturn(genre2);
+        given(genreRepository.findGenreByGenreName("Heavy Metal")).willReturn(genre3);
         given(genreRepository.findGenreByGenreName("Grunge")).willReturn(genre4);
 
         mockMvc.perform(get("/genres/{genreName}", "Rock"))
@@ -78,15 +79,15 @@ public class GenreControllerUnitTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.genreName", is("Rock")));
 
-        mockMvc.perform(get("/genres/{genreName}", "Punk"))
+        mockMvc.perform(get("/genres/{genreName}", "Punk rock"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.genreName", is("Punk")));
+                .andExpect(jsonPath("$.genreName", is("Punk rock")));
 
-        mockMvc.perform(get("/genres/{genreName}", "Metal"))
+        mockMvc.perform(get("/genres/{genreName}", "Heavy Metal"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.genreName", is("Metal")));
+                .andExpect(jsonPath("$.genreName", is("Heavy Metal")));
 
         mockMvc.perform(get("/genres/{genreName}", "Grunge"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
