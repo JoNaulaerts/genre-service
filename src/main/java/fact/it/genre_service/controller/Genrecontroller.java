@@ -26,7 +26,7 @@ public class Genrecontroller {
             genreRepository.save(new Genre("Grunge"));
         }
 
-        System.out.println("Genre test: " + genreRepository.findGenreByGenreName("Grunge").getGenreName());
+//        System.out.println("Genre test: " + genreRepository.findGenreByGenreName("Grunge").getGenreName());
     }
 
     @GetMapping("/genres")
