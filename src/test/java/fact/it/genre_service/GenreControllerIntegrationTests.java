@@ -56,7 +56,7 @@ public class GenreControllerIntegrationTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void givenGenre_whenGetGenreByGenreName_thenReturnJsonGenre() throws Exception {
+    public void givenGenre_whenGetGenre_thenReturnJsonGenre() throws Exception {
 
 
         List<Genre> genreList = new ArrayList<>();
@@ -76,9 +76,54 @@ public class GenreControllerIntegrationTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)))
                 .andExpect(jsonPath("$[0].genreName", is("Rock")))
-                .andExpect(jsonPath("$[0].genreName", is("Punk")))
-                .andExpect(jsonPath("$[0].genreName", is("Metal")))
-                .andExpect(jsonPath("$[0].genreName", is("Grunge")));
+                .andExpect(jsonPath("$[1].genreName", is("Punk")))
+                .andExpect(jsonPath("$[2].genreName", is("Metal")))
+                .andExpect(jsonPath("$[3].genreName", is("Grunge")));
     }
 
+    @Test
+    public void givenGenre_whenGetGenreByGenreName_thenReturnJsonGenre() throws Exception {
+
+
+        List<Genre> genreList2 = new ArrayList<>();
+        genreList2.add(genre1);
+        genreList2.add(genre2);
+        genreList2.add(genre3);
+        genreList2.add(genre4);
+
+        mockMvc.perform(get("/genres/{genreName}", "Rock"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.genreName", is("Rock")));
+
+        mockMvc.perform(get("/genres/{genreName}", "Punk"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.genreName", is("Punk")));
+
+        mockMvc.perform(get("/genres/{genreName}", "Metal"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.genreName", is("Metal")));
+
+        mockMvc.perform(get("/genres/{genreName}", "Grunge"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.genreName", is("Grunge")));
+
+    }
+
+    @Test
+    public void givenNoGenre_whenGetGenre_thenStatusNotFound() throws Exception {
+
+        List<Genre> genreList3 = new ArrayList<>();
+        genreList3.add(genre1);
+        genreList3.add(genre2);
+        genreList3.add(genre3);
+        genreList3.add(genre4);
+
+        mockMvc.perform(get("/genres/{genreName}", "K-POP")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().string(""));
+    }
 }

@@ -3,8 +3,10 @@ package fact.it.genre_service.controller;
 import fact.it.genre_service.model.Genre;
 import fact.it.genre_service.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -16,8 +18,8 @@ public class Genrecontroller {
     private GenreRepository genreRepository;
 
     @PostConstruct
-    public void fillDB(){
-        if(genreRepository.count() == 0){
+    public void fillDB() {
+        if (genreRepository.count() == 0) {
             genreRepository.save(new Genre("Rock"));
             genreRepository.save(new Genre("Punk"));
             genreRepository.save(new Genre("Metal"));
@@ -34,7 +36,9 @@ public class Genrecontroller {
 
     @GetMapping("/genres/{genreName}")
     public Genre getGenresByGenreName(@PathVariable String genreName) {
-        return genreRepository.findGenreByGenreName(genreName);
+
+        Genre genreReturn = genreRepository.findGenreByGenreName(genreName);
+        return genreReturn;
     }
 
 //    @PostMapping("/genres")
