@@ -3,10 +3,7 @@ package fact.it.genre_service.controller;
 import fact.it.genre_service.model.Genre;
 import fact.it.genre_service.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
