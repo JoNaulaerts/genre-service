@@ -46,7 +46,6 @@ public class GenreControllerIntegrationTests {
         genreRepository.save(genre4);
     }
 
-
     @AfterEach
     public void afterAllTests() {
         //Watch out with deleteAll() methods when you have other data in the test database!
@@ -57,19 +56,6 @@ public class GenreControllerIntegrationTests {
 
     @Test
     public void givenGenre_whenGetGenre_thenReturnJsonGenre() throws Exception {
-
-
-//        List<Genre> genreList = new ArrayList<>();
-//        genreList.add(genre1);
-//        genreList.add(genre2);
-//        genreList.add(genre3);
-//        genreList.add(genre4);
-
-//        mockMvc.perform(get("/genres/{genreName}", "Rock"))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$.genreName", is("Rock")));
-
 
         mockMvc.perform(get("/genres"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -83,13 +69,6 @@ public class GenreControllerIntegrationTests {
 
     @Test
     public void givenGenre_whenGetGenreByGenreName_thenReturnJsonGenre() throws Exception {
-
-
-//        List<Genre> genreList2 = new ArrayList<>();
-//        genreList2.add(genre1);
-//        genreList2.add(genre2);
-//        genreList2.add(genre3);
-//        genreList2.add(genre4);
 
         mockMvc.perform(get("/genres/{genreName}", "Rock"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -110,17 +89,10 @@ public class GenreControllerIntegrationTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.genreName", is("Grunge")));
-
     }
 
     @Test
     public void givenNoGenre_whenGetGenre_thenStatusNotFound() throws Exception {
-
-//        List<Genre> genreList3 = new ArrayList<>();
-//        genreList3.add(genre1);
-//        genreList3.add(genre2);
-//        genreList3.add(genre3);
-//        genreList3.add(genre4);
 
         mockMvc.perform(get("/genres/{genreName}", "K-POP")
                 .contentType(MediaType.APPLICATION_JSON))

@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 public class GenreControllerUnitTests {
@@ -42,7 +41,6 @@ public class GenreControllerUnitTests {
         Genre genre2 = new Genre("Punk");
         Genre genre3 = new Genre("Metal");
         Genre genre4 = new Genre("Grunge");
-
 
         List<Genre> genreList = new ArrayList<>();
         genreList.add(genre1);
@@ -65,18 +63,10 @@ public class GenreControllerUnitTests {
     @Test
     public void givenGenre_whenGetGenreByGenreName_thenReturnJsonGenre() throws Exception {
 
-
         Genre genre1 = new Genre("Rock");
         Genre genre2 = new Genre("Punk");
         Genre genre3 = new Genre("Metal");
         Genre genre4 = new Genre("Grunge");
-
-
-//        List<Genre> genreList = new ArrayList<>();
-//        genreList.add(genre1);
-//        genreList.add(genre2);
-//        genreList.add(genre3);
-//        genreList.add(genre4);
 
         given(genreRepository.findGenreByGenreName("Rock")).willReturn(genre1);
         given(genreRepository.findGenreByGenreName("Punk")).willReturn(genre2);
@@ -102,17 +92,10 @@ public class GenreControllerUnitTests {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.genreName", is("Grunge")));
-
     }
 
     @Test
     public void givenNoGenre_whenGetGenre_thenStatusNotFound() throws Exception {
-
-//        List<Genre> genreList3 = new ArrayList<>();
-//        genreList3.add(genre1);
-//        genreList3.add(genre2);
-//        genreList3.add(genre3);
-//        genreList3.add(genre4);
 
         given(genreRepository.findGenreByGenreName("K-POP")).willReturn(null);
 
