@@ -7,6 +7,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_DB: genre
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: genre123
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          # Maps tcp port 5432 on service container to the host
+          - 5432:5432
+
     name: Java 11 build, test, deliver container
     steps:
       - name: Check out repository
@@ -30,11 +51,6 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-
-      - name: Start MongoDB for integration test
-        uses: supercharge/mongodb-github-action@1.3.0
-        with:
-          mongodb-version: 4.2
 
       - name: Build, test and package project
         env:
