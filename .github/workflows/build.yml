@@ -29,14 +29,16 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Start MongoDB for integration test
-        uses: supercharge/mongodb-github-action@1.3.0
+      - name: Start Postgres for integration test
+        uses: postgres
         with:
-          mongodb-version: 4.2
+          POSTGRES_DB: genre
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: genre123
 
       - name: Build, test and package project
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=JoNaulaerts_genre-service
 

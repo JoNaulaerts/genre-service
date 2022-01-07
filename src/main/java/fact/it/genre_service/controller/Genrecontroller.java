@@ -3,7 +3,9 @@ package fact.it.genre_service.controller;
 import fact.it.genre_service.model.Genre;
 import fact.it.genre_service.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -26,8 +28,6 @@ public class Genrecontroller {
             genreRepository.save(new Genre("Grunge","Grunge (sometimes referred to as the Seattle sound) is an alternative rock genre and subculture that emerged during the mid-1980s in the American Pacific Northwest state of Washington, particularly in Seattle and nearby towns."));
             genreRepository.save(new Genre("New wave","New wave is a broad music genre that encompasses numerous pop-oriented styles from the late 1970s and the 1980s. It was originally used as a catch-all for the music that emerged after punk rock, including punk itself, but may be viewed retrospectively as a more accessible counterpart of post-punk."));
         }
-
-//        System.out.println("Genre test: " + genreRepository.findGenreByGenreName("Grunge").getGenreName());
     }
 
     @GetMapping("/genres")
@@ -41,30 +41,4 @@ public class Genrecontroller {
         Genre genreReturn = genreRepository.findGenreByGenreName(genreName);
         return genreReturn;
     }
-
-//    @PostMapping("/genres")
-//    public Genre addGenre(@RequestBody Genre genre) {
-//        genreRepository.save(genre);
-//        return genre;
-//    }
-//
-//    @PutMapping("/genres")
-//    public Genre updateGenre(@RequestBody Genre updatedGenre) {
-//        Genre retrievedGenre = genreRepository.findGenreByGenreName(updatedGenre.getGenreName());
-//        retrievedGenre.setGenreName(updatedGenre.getGenreName());
-//        genreRepository.save(retrievedGenre);
-//
-//        return retrievedGenre;
-//    }
-//
-//    @DeleteMapping("/genres/{genreName}")
-//    public ResponseEntity deleteGenre(@PathVariable String genreName) {
-//        Genre genre = genreRepository.findGenreByGenreName(genreName);
-//        if (genre != null){
-//            genreRepository.delete(genre);
-//            return ResponseEntity.ok().build();
-//        } else {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
 }
