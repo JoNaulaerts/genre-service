@@ -1,18 +1,13 @@
 package fact.it.genre_service.model;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "genres")
+@Document(collection = "genres")
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name="genre_name")
+    private String id;
     private String genreName;
-
-    @Column(name="description", length = 1024)
     private String description;
 
     public Genre(String genreName, String description) {
@@ -20,16 +15,12 @@ public class Genre {
         this.description = description;
     }
 
-    public Genre() {
-
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getGenreName() {
@@ -47,6 +38,4 @@ public class Genre {
     public void setDescription(String description) {
         this.description = description;
     }
-
-
 }
