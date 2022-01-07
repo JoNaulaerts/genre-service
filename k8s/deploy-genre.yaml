@@ -80,7 +80,7 @@ spec:
             - name: POSTGRES_DB_USERNAME
               value: "genre"
             - name: POSTGRES_DB_PASSWORD
-              value: ${GENRE_POSTGRES_PASSWORD:genre1234}
+              value: "genre123"
 ---
 apiVersion: v1
 kind: Service
