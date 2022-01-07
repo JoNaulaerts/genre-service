@@ -30,7 +30,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Start Postgres for integration test
-        uses: postgres
+        uses: postgres/postgres
         with:
           POSTGRES_DB: genre
           POSTGRES_USER: postgres
